@@ -1,0 +1,51 @@
+     var Alexa = require('alexa-sdk');
+
+        exports.handler = function(event, context, callback) {
+            var alexa = Alexa.handler(event, context);
+
+            // alexa.dynamoDBTableName = 'YourTableName'; // creates new table for userid:session.attributes
+
+            alexa.registerHandlers(handlers);
+            alexa.execute();
+        };
+
+        var handlers = {
+            'LaunchRequest': function () {
+                this.emit(':ask', 'Welcome to the attributes skill, I can remember your information, lets start with your name');
+                this.emit('GetNameIntent');
+            },
+            'GetNameIntent': function () {
+            var myName = this.event.request.intent.slots.myname.value;
+            this.attributes['firstname'] = myName;
+            this.emit(':ask', 'oh hello there '+ myName + ', how old are you?');
+            },
+              'GetAgeIntent': function () {
+              var myAge = this.event.request.intent.slots.myage.value;
+              this.attributes['age'] = myAge;
+                this.emit(':ask', 'ok you young whipper snapper, are you a boy or girl?');
+            },
+              'GetGenderIntent': function () {
+              var myGender = this.event.request.intent.slots.mygender.value;
+              this.attributes['gender']= myGender;
+              this.emit(':ask', 'ok almost done,  what grade are you in?');
+            },
+              'GetGradeIntent': function () {
+              var myGrade = this.event.request.intent.slots.mygrade.value;
+               this.attributes['grade']= myGrade;
+                this.emit(':ask', 'great, at what school?');
+            },
+              'GetSchoolIntent': function () {
+              var mySchool = this.event.request.intent.slots.myschool.value;
+               this.attributes['school']= mySchool;
+               this.emit('GiveInformation');//THIS IS ALSO IMPORTANT!!!
+            },
+            'GiveInformation': function () {
+                name = this.attributes['firstname'];
+                age = this.attributes['age'];
+                gender = this.attributes['gender'];
+                grade = this.attributes['grade'];
+                school =  this.attributes['school'];
+                this.emit(':tell', 'Here is your information, your name is ' + name + ', you are a' + age + 'year old ' + gender + ', who is in ' + grade + ' grade at ' + school + 'school' );                  
+            }
+
+        };
