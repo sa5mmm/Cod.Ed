@@ -1,0 +1,75 @@
+        var Alexa = require('alexa-sdk');
+
+        exports.handler = function(event, context, callback) {
+            var alexa = Alexa.handler(event, context);
+            alexa.dynamoDBTableName = 'myTable'; // creates new table for userid:session.attributes
+            alexa.registerHandlers(handlers);
+            alexa.execute();
+        };
+        
+        var handlers = {
+            'LaunchRequest': function (){
+                this.emit('StartIntent');
+            },
+            'StartIntent':function(){
+               this.emit(':ask','Welcome to the guessing game, choose a difficulty');
+            },
+            'Easy': function() {
+                var rand = Math.floor(Math.random() * 11);
+                this.attributes['rand'] = rand;
+                this.emit(':ask', "Guess a number from zero to ten.");
+            },
+            'Normal': function(){
+                var rand = Math.floor(Math.random() * 21);
+                this.attributes['rand'] = rand;
+                this.emit(':ask', "Guess a numbers from zero to twenty.");
+            },
+            'Hard': function(){
+                var rand = Math.floor(Math.random() * 101);
+                this.attributes['rand'] = rand;
+                this.emit(':ask', "Guess a number from zero to a hundred.");
+            },
+            'GuessIntent':function(){
+                var userGuess = this.event.request.intent.slots.myguess.value;
+                var answer = this.attributes['rand'];
+                if(userGuess == answer){
+                    var speechcon1 = getSpeechCon(true);
+                    this.emit(':tell', speechcon1 + ' Good job, the answer is ' + answer);
+                }
+                else if(userGuess < answer){
+                    var speechcon2 = getSpeechCon(false);
+                    this.emit(':ask',speechcon2 + ' Guess higher! '); 
+                }
+                else{
+                    var speechcon3 = getSpeechCon(false);
+                    this.emit(':ask',speechcon3 + ' Guess lower!');
+                }
+            },
+            'GiveUpIntent': function(){
+                answer = this.attributes['rand'];
+                this.emit(':tell','I was thinking of ' + answer);
+            }
+        };
+  
+  
+      
+function getSpeechCon(bool)
+{
+    if (bool) {
+        return "<say-as interpret-as='interjection'>" + speechConsCorrect[Math.floor(Math.random()*speechConsCorrect.length)] + "! </say-as><break strength='strong'/>";
+    }
+    else {
+        return "<say-as interpret-as='interjection'>" + speechConsWrong[Math.floor(Math.random()*speechConsWrong.length)] + " </say-as><break strength='strong'/>";    
+    }
+} 
+//This is a list of positive speechcons that this skill will use when a user gets a correct answer.  For a full list of supported
+//speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
+var speechConsCorrect = ["Booya", "All righty", "Bam", "Bazinga", "Bingo", "Boom", "Bravo", "Cha Ching", "Cheers", "Dynomite", 
+"Hip hip hooray", "Hurrah", "Hurray", "Huzzah", "Oh dear.  Just kidding.  Hurray", "Kaboom", "Kaching", "Oh snap", "Phew", 
+"Righto", "Way to go", "Well done", "Whee", "Woo hoo", "Yay", "Wowza", "Yowsa"];
+
+//This is a list of negative speechcons that this skill will use when a user gets an incorrect answer.  For a full list of supported
+//speechcons, go here: https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/speechcon-reference
+var speechConsWrong = ["Argh", "Aw man", "Blarg", "Blast", "Boo", "Bummer", "Darn", "D'oh", "Dun dun dun", "Eek", "Honk", "Le sigh",
+"Mamma mia", "Oh boy", "Oh dear", "Oof", "Ouch", "Ruh roh", "Shucks", "Uh oh", "Wah wah", "Whoops a daisy", "Yikes"];
+
