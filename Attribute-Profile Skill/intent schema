@@ -1,0 +1,58 @@
+{
+  "intents": [
+    {
+      "slots": [
+        {
+          "name": "myname",
+          "type": "AMAZON.US_FIRST_NAME"
+        }
+      ],
+      "intent": "GetNameIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "myage",
+          "type": "AMAZON.NUMBER"
+        }
+      ],
+      "intent": "GetAgeIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "mygender",
+          "type": "gendertypes"
+        }
+      ],
+      "intent": "GetGenderIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "mygrade",
+          "type": "gradetype"
+        }
+      ],
+      "intent": "GetGradeIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "myschool",
+          "type": "schooltype"
+        }
+      ],
+      "intent": "GetSchoolIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
