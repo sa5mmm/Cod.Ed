@@ -1,0 +1,223 @@
+//THANKS JOSH 
+var Alexa = require('alexa-sdk');
+
+        exports.handler = function(event, context, callback) {
+            var alexa = Alexa.handler(event, context);
+
+            // alexa.dynamoDBTableName = 'YourTableName'; // creates new table for userid:session.attributes
+
+            alexa.registerHandlers(handlers);
+            alexa.execute();
+        };
+         /*  lose: 
+                    milesTraveled - nativesDistance <= 0
+                    thirst > 6
+                    camelTiredness > 8
+                    
+                win:
+                    milesTraveled > = 200
+            */
+        //default stats
+                var milesTraveled;
+                var thirst;
+                var camelTiredness ;
+                var nativesDistance;
+                var drinks;
+                
+        //win phrases
+                var win = ['TA-DA! You survived the desert. You are free.',
+                           'Congratz! You win and your camel found a beautiful lady camel.',
+                           'Good job you survived! I bet you can\'t wait to make your own game.',
+                           'Boy josh did a great job making this cool game. I want to be just like him one day.',
+                           'You have destoryed the game josh spent his whole life creating. Congratz'];
+        var handlers = {
+            'LaunchRequest': function () {
+                milesTraveled = 0;
+                thirst = 0;
+                camelTiredness = 0;
+                nativesDistance = -20;
+                drinks = 3;
+                this.emit('StartIntent');
+            },
+
+            'StartIntent': function () {
+                this.emit(':ask', 'Welcome to the camel game! You have stolen a camel to make your way across the great Gobi desert. Survive your desert trek and out run the natives,pick your choice. A. Drink from your canteen. B. Ahead moderate speed. C. Ahead full speed. D. Stop for the night. E. Status check. Q. Quit. You win if you get to the airport 200 miles away from here. You lose if the distance between you and the natives reach 0. You can also die of thirst or if your camel gets too tired. Good luck! Say help or menu if you need the menu again.');
+            },
+            /*
+                Menu
+                ----
+                A. Drink from your canteen
+                B. Ahead moderate speed
+                C. Ahead full speed
+                D. Stop for the night
+                E. Status check
+                S. Shop
+                F. Quit
+            */
+            
+            //user says help or menu
+            'DisplayIntent': function (){
+                this.emit(':ask', 'A. Drink from your canteen. B. Ahead moderate speed. C. Ahead full speed. D. Stop for the night. E. Status check. Q. Quit.You lose if the distance between you and the natives reach 0. You can also die of thirst or if your camel gets too tired. Good luck! ');
+            },
+            
+            //if user chose A
+            //Drink from canteen
+            'DrinkIntent': function () {
+               
+                /*
+                    Positives:
+                        Set thirst back to 0
+                        Natives do not chase you
+                */
+                if (drinks > 0){
+                    drinks = drinks - 1;
+                    thirst = 0;
+                    this.emit(':ask', 'You took a big gulp from your canteen. say help or menu if you need the menu again');
+                }
+                else {
+                    this.emit(':ask', 'You are out of drinks to drink!');
+                }
+            },
+            
+            //if user chose B 
+            //Ahead moderate speed
+            'ModerateSpeedIntent': function (){
+                var rand = Math.floor(Math.random() * win.length);
+                var userDistance = Math.floor( Math.random() * 13 ) + 4;
+                var nDistance = Math.floor ( Math.random() * 11 ) + 5;
+                
+                /*
+                    Positives: 
+                        Increase milesTraveled by 4 to 16 miles
+                */
+                milesTraveled = milesTraveled + userDistance;
+    
+                /*
+                    Negatives:
+                        Increase thirst by 1
+                        Increase camelTiredness by 1
+                        Increase nativesDistance by 5 to 15 miles
+                */
+                thirst = thirst + 1;
+                camelTiredness = camelTiredness + 1;
+                nativesDistance = nativesDistance + nDistance;
+                
+                //You Win!
+                if (milesTraveled >= 200){
+                    this.emit(':tell', win[rand]);
+                }
+                //You lose
+                if (milesTraveled - nativesDistance <= 0){
+                    this.emit(':tell', 'Oh no they caught up to you! Game over.');
+                }
+                else if (camelTiredness > 8){
+                    this.emit(':tell', 'Oh man oh geez, your camel got too tired and fainted. They\'re catching up! Aaandd.. they caught you. Game over!');
+                }
+                else if (thirst > 6){
+                    this.emit(':tell', 'Uh oh you died of thirst! Dehydration is a big problem in the desert. They left you in the sun to die. Game Over!');
+                }
+                //Game Continues
+                else {
+                    if( (milesTraveled - nativesDistance <= 5) && (milesTraveled - nativesDistance > 0) ){
+                        this.emit(':ask' , 'Uh oh they\'re closing in. You have traveled ' + userDistance + ' miles. Say help or menu if you need the menu again');
+                    }
+                    else {
+                        this.emit(':ask' ,' You have traveled ' + userDistance + ' miles. The natives are ' + (milesTraveled - nativesDistance) + ' miles away. Say help or menu if you need the menu again');
+                    }
+                }
+            },
+            
+            //if user chose C
+            //Ahead full speed
+            'FullSpeedIntent': function () {
+                var fullSpeed = ['FOR NARNIA ',
+                                 'FULL SPEED AHEAD ',
+                                 'CHOO CHOO. oh wait i\'m on a camel ',
+                                 'Giddiup Buttercup! ',
+                                 'KA-CHOOW. Lightning fast like Lightning McQueen.',
+                                 'Full speed on a camel doesn\'t feel very fast. But it is somehow.'];
+                var rand = Math.floor(Math.random() * win.length);
+                var random = Math.floor(Math.random() * fullSpeed.length);
+                var userDistance = Math.floor(Math.random() * 11 ) + 10;
+                var nDistance = Math.floor(Math.random() * 11 ) + 5;
+                var tiredness = Math.floor(Math.random() * 3 ) + 1;
+                /*
+                    Positives:
+                        Increase milesTraveled by 10 to 20 miles
+                */
+                milesTraveled = milesTraveled + userDistance;
+                /*
+                    Negatives:
+                        Increase thirst by 1
+                        Increase camelTiredness by 1 to 3
+                        Increase nativesDistance by 5 to 15 miles
+                */      
+                thirst = thirst + 1;
+                camelTiredness = camelTiredness + tiredness;
+                nativesDistance = nativesDistance + nDistance;
+                
+                //You win
+                if(milesTraveled >= 200){
+                    this.emit(':tell', win[rand]);
+                }
+                //You lose
+                if (milesTraveled - nativesDistance <= 0){
+                    this.emit(':tell', 'Oh no they caught up to you! Game over.');
+                }
+                else if (camelTiredness > 8){
+                    this.emit(':tell', 'Oh man oh geez rick, your camel got too tired and fainted. They\'re catching up! Aaandd.. they caught you. Game over!');
+                }
+                else if (thirst > 6){
+                    this.emit(':tell', 'Uh oh you died of thirst! Dehydration is a big problem in the desert. They left you in the sun to die. Game Over!');
+                }
+                //Game Continues
+                else {
+                    if( (milesTraveled - nativesDistance <= 5) && (milesTraveled - nativesDistance > 0) ){
+                        this.emit(':ask' , 'Uh oh they\'re closing in. You have traveled ' + userDistance + ' miles. Say help or menu if you need the menu again');
+                    }
+                    else {
+                        this.emit(':ask' , fullSpeed[random] + '. You have traveled ' + userDistance + ' miles. The natives are ' + (milesTraveled - nativesDistance) + ' miles away. Say help or menu if you need the menu again');
+                    }
+                }
+            },
+            
+            //if user chose D
+            //Stop for the night
+            'RestIntent': function () {
+                var nDistance = Math.floor(Math.random() * 11 ) + 5;
+                
+                /*
+                    Positives:
+                        Set camelTiredness back to 0
+                */
+                camelTiredness = 0;
+                
+                /*
+                    Negatives:
+                        Increase nativesDistance by 5 to 15 miles
+                */
+                nativesDistance = nativesDistance + nDistance;
+                
+                //You lose!
+                if (milesTraveled - nativesDistance <= 0){
+                    this.emit(':tell', 'Oh no they caught up to you! Game over.');
+                }
+                //Game Continues
+                else{
+                    this.emit(':ask', 'Your camel is happy. But now the natives are ' + (milesTraveled - nativesDistance) + ' miles away. Say help or menu if you need the menu again ');
+                }
+            },
+            
+            //if user chose E
+            //Show the stats
+            'StatusIntent': function (){
+                this.emit(':ask', 'Your miles traveled is ' + milesTraveled + '. Your thirst is at ' + thirst + '. You have ' + drinks + ' drinks left. Your camel\'s tiredness is at ' + camelTiredness + '. The natives are ' + (milesTraveled - nativesDistance) + ' miles away. You lose if the distance between you and the natives reach 0. You can also die of thirst or if your camel gets too tired. Good luck! ');
+            },
+            
+            //if user chose Q
+            //user quits the game
+            'QuitIntent': function (){
+                this.emit(':tell', 'You have been captured. Game over!');
+            },
+
+        };
