@@ -1,0 +1,7 @@
+GuessIntent {myguess}
+GiveUpIntent I give up
+StartIntent start
+StartIntent startover
+Easy easy
+Normal normal
+Hard hard
