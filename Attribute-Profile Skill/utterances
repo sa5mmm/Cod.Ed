@@ -1,0 +1,6 @@
+GetNameIntent my name is {myname}
+GetAgeIntent my age is {myage}
+GetGenderIntent I am a {mygender}
+GetGradeIntent I am in {mygrade} grade
+GetSchoolIntent I go to {myschool}
+GetSchoolIntent I attend {myschool}
