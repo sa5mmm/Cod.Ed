@@ -1,0 +1,31 @@
+{
+  "intents": [
+    {
+      "slots": [
+        {
+          "name": "myrps",
+          "type": "rpstype"
+        }
+      ],
+      "intent": "RPSIntent"
+    },
+    {
+      "intent": "StartIntent"
+    },
+    {
+      "intent": "GiveUpIntent"
+    },
+    {
+      "intent": "CompetitionIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
