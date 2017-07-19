@@ -1,0 +1,36 @@
+        var Alexa = require('alexa-sdk');
+
+        exports.handler = function(event, context, callback) {
+            var alexa = Alexa.handler(event, context);
+
+            // alexa.dynamoDBTableName = 'YourTableName'; // creates new table for userid:session.attributes
+
+            alexa.registerHandlers(handlers);
+            alexa.execute();
+        };
+        
+        var handlers = {
+            'LaunchRequest': function () {
+                this.emit('StartIntent');
+            },
+            'StartIntent': function () {
+                this.emit( ':ask','Welcome to the rock paper scissors game. I\'m going to say rock paper scissors and after, you say your choice, lets go! Rock paper scissors.');
+            },
+            'RPSIntent':function(){
+                var rps = ['rock','paper','scissors'];
+                var rpsSpeech =  'lets go again,rock paper scissors';
+                var opponent = rps[Math.floor(Math.random() * 3)];
+                var user = this.event.request.intent.slots.myguess.value;
+                
+                if(user == opponent){
+                    this.emit(':ask', 'its a tie, ' + rpsSpeech );
+                }
+                else if(user == 'rock' && opponent == 'paper' || user == 'paper' && opponent == 'scissors' || user == 'scissors' && opponent == 'rock'){
+                    this.emit(':ask', 'hah! I chose '+ opponent + ', you lose!'+ rpsSpeech );
+                }
+                else{
+                    this.emit(':tell', 'aw man!, I chose ' + opponent + ', you won, ' + rpsSpeech);
+                }
+               
+            }
+        };
