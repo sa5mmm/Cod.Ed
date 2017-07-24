@@ -1,0 +1,37 @@
+{
+  "intents": [
+    {
+      "intent": "StartIntent"
+    },
+    {
+      "intent" : "DisplayIntent"
+    },
+    {
+      "intent": "DrinkIntent"
+    },
+    {
+      "intent": "ModerateSpeedIntent"
+    },
+    {
+      "intent": "FullSpeedIntent"
+    },
+    {
+      "intent": "RestIntent"
+    },
+    {
+      "intent": "StatusIntent"
+    },
+    {
+      "intent": "QuitIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}
