@@ -17,13 +17,6 @@ var Alexa = require('alexa-sdk');
                 win:
                     milesTraveled > = 200
             */
-        //default stats
-                var milesTraveled;
-                var thirst;
-                var camelTiredness ;
-                var nativesDistance;
-                var drinks;
-                
         //win phrases
                 var win = ['TA-DA! You survived the desert. You are free.',
                            'Congratz! You win and your camel found a beautiful lady camel.',
@@ -32,15 +25,21 @@ var Alexa = require('alexa-sdk');
                            'You have destoryed the game josh spent his whole life creating. Congratz'];
         var handlers = {
             'LaunchRequest': function () {
-                milesTraveled = 0;
-                thirst = 0;
-                camelTiredness = 0;
-                nativesDistance = -20;
-                drinks = 3;
                 this.emit('StartIntent');
             },
 
             'StartIntent': function () {
+                var milesTraveled = 0;
+                var thirst = 0;
+                var camelTiredness = 0;
+                var nativesDistance = -20;
+                var drinks = 3;
+                //UPDATE ATTRIBUTES!!
+                this.attributes['milesTraveled'] = milesTraveled;
+                this.attributes['thirst'] = thirst;
+                this.attributes['camelTiredness'] = camelTiredness;
+                this.attributes['nativesDistance'] = nativesDistance;
+                this.attributes['drinks'] = drinks;
                 this.emit(':ask', 'Welcome to the camel game! You have stolen a camel to make your way across the great Gobi desert. Survive your desert trek and out run the natives,pick your choice. A. Drink from your canteen. B. Ahead moderate speed. C. Ahead full speed. D. Stop for the night. E. Status check. Q. Quit. You win if you get to the airport 200 miles away from here. You lose if the distance between you and the natives reach 0. You can also die of thirst or if your camel gets too tired. Good luck! Say help or menu if you need the menu again.');
             },
             /*
@@ -63,15 +62,24 @@ var Alexa = require('alexa-sdk');
             //if user chose A
             //Drink from canteen
             'DrinkIntent': function () {
-               
+                             //GET ATTRIBUTES!!
+                milesTraveled =this.attributes['milesTraveled'];
+                thirst =this.attributes['thirst'];
+                camelTiredness =this.attributes['camelTiredness'];
+                nativesDistance = this.attributes['nativesDistance'];
+                drinks = this.attributes['drinks'];
                 /*
                     Positives:
                         Set thirst back to 0
                         Natives do not chase you
                 */
+            
                 if (drinks > 0){
                     drinks = drinks - 1;
                     thirst = 0;
+                    //UPDATE ATTRIBUTES!!
+                    this.attributes['thirst'] = thirst;
+                    this.attributes['drinks'] = drinks;
                     this.emit(':ask', 'You took a big gulp from your canteen. say help or menu if you need the menu again');
                 }
                 else {
@@ -82,10 +90,15 @@ var Alexa = require('alexa-sdk');
             //if user chose B 
             //Ahead moderate speed
             'ModerateSpeedIntent': function (){
+                              //GET ATTRIBUTES!!
+                 milesTraveled =this.attributes['milesTraveled'];
+                thirst =this.attributes['thirst'];
+                camelTiredness =this.attributes['camelTiredness'];
+                nativesDistance = this.attributes['nativesDistance'];
+                
                 var rand = Math.floor(Math.random() * win.length);
                 var userDistance = Math.floor( Math.random() * 13 ) + 4;
-                var nDistance = Math.floor ( Math.random() * 11 ) + 5;
-                
+                var nDistance = Math.floor( Math.random() * 11 ) + 5;
                 /*
                     Positives: 
                         Increase milesTraveled by 4 to 16 miles
@@ -102,6 +115,11 @@ var Alexa = require('alexa-sdk');
                 camelTiredness = camelTiredness + 1;
                 nativesDistance = nativesDistance + nDistance;
                 
+                  //UPDATE ATTRIBUTES!!
+                this.attributes['milesTraveled'] = milesTraveled;
+                this.attributes['thirst'] = thirst;
+                this.attributes['camelTiredness'] = camelTiredness;
+                this.attributes['nativesDistance'] = nativesDistance;
                 //You Win!
                 if (milesTraveled >= 200){
                     this.emit(':tell', win[rand]);
@@ -130,6 +148,12 @@ var Alexa = require('alexa-sdk');
             //if user chose C
             //Ahead full speed
             'FullSpeedIntent': function () {
+                              //GET ATTRIBUTES!!
+                 milesTraveled =this.attributes['milesTraveled'];
+                thirst =this.attributes['thirst'];
+                camelTiredness =this.attributes['camelTiredness'];
+                nativesDistance = this.attributes['nativesDistance'];
+                
                 var fullSpeed = ['FOR NARNIA ',
                                  'FULL SPEED AHEAD ',
                                  'CHOO CHOO. oh wait i\'m on a camel ',
@@ -155,6 +179,12 @@ var Alexa = require('alexa-sdk');
                 thirst = thirst + 1;
                 camelTiredness = camelTiredness + tiredness;
                 nativesDistance = nativesDistance + nDistance;
+                
+                //UPDATE ATTRIBUTES!!
+                this.attributes['milesTraveled'] = milesTraveled;
+                this.attributes['thirst'] = thirst;
+                this.attributes['camelTiredness'] = camelTiredness;
+                this.attributes['nativesDistance'] = nativesDistance;
                 
                 //You win
                 if(milesTraveled >= 200){
@@ -184,6 +214,12 @@ var Alexa = require('alexa-sdk');
             //if user chose D
             //Stop for the night
             'RestIntent': function () {
+                              //GET ATTRIBUTES!!
+                 milesTraveled =this.attributes['milesTraveled'];
+                thirst =this.attributes['thirst'];
+                camelTiredness =this.attributes['camelTiredness'];
+                nativesDistance = this.attributes['nativesDistance'];
+                
                 var nDistance = Math.floor(Math.random() * 11 ) + 5;
                 
                 /*
@@ -198,6 +234,10 @@ var Alexa = require('alexa-sdk');
                 */
                 nativesDistance = nativesDistance + nDistance;
                 
+                
+                //UPDATE ATTRIBUTES!!
+                this.attributes['camelTiredness'] = camelTiredness;
+                this.attributes['nativesDistance'] = nativesDistance;
                 //You lose!
                 if (milesTraveled - nativesDistance <= 0){
                     this.emit(':tell', 'Oh no they caught up to you! Game over.');
@@ -211,6 +251,12 @@ var Alexa = require('alexa-sdk');
             //if user chose E
             //Show the stats
             'StatusIntent': function (){
+                //GET ATTRIBUTES!!
+                milesTraveled =this.attributes['milesTraveled'];
+                thirst =this.attributes['thirst'];
+                camelTiredness =this.attributes['camelTiredness'];
+                nativesDistance = this.attributes['nativesDistance'];
+                drinks = this.attributes['drinks'];
                 this.emit(':ask', 'Your miles traveled is ' + milesTraveled + '. Your thirst is at ' + thirst + '. You have ' + drinks + ' drinks left. Your camel\'s tiredness is at ' + camelTiredness + '. The natives are ' + (milesTraveled - nativesDistance) + ' miles away. You lose if the distance between you and the natives reach 0. You can also die of thirst or if your camel gets too tired. Good luck! ');
             },
             
