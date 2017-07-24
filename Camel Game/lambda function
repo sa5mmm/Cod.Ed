@@ -219,5 +219,8 @@ var Alexa = require('alexa-sdk');
             'QuitIntent': function (){
                 this.emit(':tell', 'You have been captured. Game over!');
             },
+            'AMAZON.HelpIntent': function () {
+                this.emit('DisplayIntent');
+            }
 
         };
