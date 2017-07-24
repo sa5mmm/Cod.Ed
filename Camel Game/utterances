@@ -1,0 +1,13 @@
+StartIntent start
+DisplayIntent display choices
+DrinkIntent drink 
+DrinkIntent drink from canteen
+DrinkIntent drink water
+ModerateSpeedIntent ahead moderate speed
+FullSpeedIntent ahead full speed 
+RestIntent rest
+RestIntent rest for the night 
+StatusIntent status check
+StatusIntent whats my status
+QuitIntent I quit
+QuitIntent quit
