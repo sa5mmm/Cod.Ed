@@ -1,0 +1,117 @@
+var Alexa = require('alexa-sdk');
+
+exports.handler = function(event, context, callback) {
+    var alexa = Alexa.handler(event, context);
+
+    alexa.dynamoDBTableName = 'moneyTable'; // creates new table for userid:session.attributes
+
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+};
+
+var account;
+
+const handlers = {
+    'NewSession': function () {
+        console.log('in new session');
+        var where;
+        if(!this.attributes['balance']){
+            this.attributes['balance']=1000;
+        }
+        console.log(this.attributes['balance']);
+        //this.attributes['balance']+=1000;
+        if (this.event.request.intent && this.event.request.intent.name) {
+            where = this.event.request.intent.name;
+        } else {
+            where = 'LaunchRequest';
+        }
+        this.emitWithState(where);
+    },
+    //this.event.request.intent.name
+    'LaunchRequest': function () {
+        console.log('in launch request');
+        this.emit(':ask', 'which account would you like to open, checking or savings?');
+    },
+    'AccountIntent': function () {
+        account = this.event.request.intent.slots.account.value;
+        this.emit(':ask', 'Do you want to deposit, withdraw, or transfer?');
+    },
+    'DepositIntent': function () {
+        console.log('in deposit');
+        this.attributes['transaction'] = 'deposit';
+        //myAmount = this.event.request.intent.slots.amount.value;
+        var myAmount = isSlotValid(this.event.request, 'amount');
+        if (myAmount > 0){
+            //this.attributes['amount']=parseInt(myAmount);
+            console.log(this.attributes['balance']);
+            var balance = parseInt(this.attributes['balance']);
+            var result = myAmount + balance;
+            this.attributes['balance'] = result;
+            //this.attributes['balance'] += this.attributes['amount'];
+            this.emit('AmountIntent');
+        }
+        this.emit(':ask', 'How much do you want to deposit?');
+    },
+    'WithdrawIntent': function () {
+        transaction = 'withdraw';
+        myAmount = this.event.request.intent.slots.amount.value;
+        if (myAmount > 0){
+            if (myAmount > this.attributes['balance']){
+                this.emit(':ask', 'You do not have that much money. You have '+balance+' dollars. How much do you want to withdraw?');
+            }
+            this.attributes['amount']=myAmount;
+            this.attributes['balance']-=this.attributes['amount'];
+            this.emit('AmountIntent');
+        }
+        this.emit(':ask', 'How much do you want to withdraw?');
+    },
+    'TransferIntent': function () {
+        transaction = 'transfer';
+        myAmount = this.event.request.intent.slots.amount.value;
+        if (myAmount > 0){
+            if (myAmount > this.attributes['balance']){
+                this.emit(':ask', 'You do not have that much money. You have '+this.attributes['balance']+' dollars. How much do you want to transfer?');
+            }
+            this.attributes['amount']=myAmount;
+            this.attributes['balance']-=this.attributes['amount'];
+            this.emit('AmountIntent');
+        }
+        this.emit(':ask', 'How much do you want to transfer?');
+    },
+    'AmountIntent': function () {
+        this.emit(':ask','you want to '+ this.attributes['transaction']+' '+this.attributes['amount']+' from your '+account+' account. Is that correct?');
+    },
+    'ConfirmIntent': function () {
+        myConfirmation = this.event.request.intent.slots.confirm.value;
+        if (myConfirmation == 'yes'){
+            
+            this.emit(':ask', 'Great! Your new '+account+' balance is '+this.attributes['balance']+". If you want to make another transaction, say deposit, withdraw, or transfer. Otherwise, say cancel or stop.")
+        }
+    },
+    'AMAZON.HelpIntent': function () {
+        const speechOutput = this.t('HELP_MESSAGE');
+        const reprompt = this.t('HELP_MESSAGE');
+        this.emit(':ask', speechOutput, reprompt);
+    },
+    'AMAZON.CancelIntent': function () {
+        this.emit(':tell', this.t('STOP_MESSAGE'));
+    },
+    'AMAZON.StopIntent': function () {
+        this.emit(':tell', this.t('STOP_MESSAGE'));
+    },
+};
+function isSlotValid(request, slotName){
+        var slot = request.intent.slots[slotName];
+        //console.log("request = "+JSON.stringify(request)); //uncomment if you want to see the request
+        var slotValue;
+
+        //if we have a slot, get the text and store it into speechOutput
+        if (slot && slot.value) {
+            //we have a value in the slot
+            slotValue = slot.value.toLowerCase();
+            return slotValue;
+        } else {
+            //we didn't get a value in the slot.
+            return false;
+        }
+}
