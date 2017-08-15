@@ -1,0 +1,141 @@
+{
+  "intents": [
+    {
+      "name": "AccountIntent",
+      "samples": [
+        "{account}"
+      ],
+      "slots": [
+        {
+          "name": "account",
+          "type": "AccountType",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": [
+        "cancel"
+      ]
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": [
+        "help"
+      ]
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": [
+        "stop"
+      ]
+    },
+    {
+      "name": "AmountIntent",
+      "samples": [],
+      "slots": []
+    },
+    {
+      "name": "ConfirmIntent",
+      "samples": [
+        "{confirm}"
+      ],
+      "slots": [
+        {
+          "name": "confirm",
+          "type": "YesNo",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "DepositIntent",
+      "samples": [
+        "deposit",
+        "i want to deposit",
+        "deposit {amount}",
+        "i want to deposit {amount}"
+      ],
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "TransferIntent",
+      "samples": [
+        "transfer",
+        "i want to transfer",
+        "transfer {amount}",
+        "i want to transfer {amount}"
+      ],
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": []
+        }
+      ]
+    },
+    {
+      "name": "WithdrawIntent",
+      "samples": [
+        "withdraw",
+        "i want to withdraw",
+        "withdraw {amount}",
+        "i want to withdraw {amount}"
+      ],
+      "slots": [
+        {
+          "name": "amount",
+          "type": "AMAZON.NUMBER",
+          "samples": []
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "AccountType",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "checking",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "savings",
+            "synonyms": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "YesNo",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "yes",
+            "synonyms": []
+          }
+        },
+        {
+          "id": null,
+          "name": {
+            "value": "no",
+            "synonyms": []
+          }
+        }
+      ]
+    }
+  ]
+}
