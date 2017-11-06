@@ -3,18 +3,6 @@
     {
       "intent": "HelloWorldIntent"
     },
-    { 
-      "intent": "MyNameIsIntent",
-      "slots": [
-        {
-          "name": "firstname",
-          "type": "AMAZON.US_FIRST_NAME"
-        }
-      ]
-    },
-    {
-      "intent": "GoodbyeIntent"
-    },
     {
       "intent": "AMAZON.StopIntent"
     },
