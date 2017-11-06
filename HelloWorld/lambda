@@ -1,0 +1,17 @@
+var Alexa = require('alexa-sdk');
+
+exports.handler = function(event, context, callback) {
+    var alexa = Alexa.handler(event, context);
+    // alexa.dynamoDBTableName = 'YourTableName'; // creates new table for userid:session.attributes
+    alexa.registerHandlers(handlers);
+    alexa.execute();
+};
+
+var handlers = {
+    'LaunchRequest': function () {
+        this.emit('HelloIntent'); //function call 
+    },
+    'HelloWorldIntent': function () {
+        this.emit(':ask', 'Hello World from Alexa!'); 
+    }
+};
