@@ -17,7 +17,7 @@ def HelloWorldIntent(event):
 def MyNameIsIntent(event):
     #body of function
     name = event['request']['intent']['slots']['firstname']['value']
-    return response('Hi ' + name, False)
+    return response('Hi ' + name + ', say goodbye... ', False)
 
 def GoodbyeIntent(event):
     #body of function
