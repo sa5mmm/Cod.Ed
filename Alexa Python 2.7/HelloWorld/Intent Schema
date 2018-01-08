@@ -1,0 +1,16 @@
+{
+    "intents":[
+        {
+        "intent": "HelloWorldIntent",
+        "slots": [{}]
+        },
+        {
+        "intent": "MyNameIsIntent",
+        "slots": [{"name": "firstname","type":"AMAZON.US_FIRST_NAME"}]
+        },
+        {
+        "intent": "GoodbyeIntent",
+        "slots": [{}]
+        }
+      ]
+}
