@@ -1,0 +1,17 @@
+
+{
+    "intents":[
+        {
+        "intent": "intent1",
+        "slots": [ { "name" : "write slot name here" , "type" : "write slot type here" } ]
+        },
+        {
+        "intent": "intent2",
+        "slots": [ { "name" : "write slot name here" , "type" : "write slot type here" } ]
+        },
+        {
+        "intent": "intent3",
+        "slots": [ { "name" : "write slot name here" , "type" : "write slot type here" } ]
+        }
+     ]
+}
