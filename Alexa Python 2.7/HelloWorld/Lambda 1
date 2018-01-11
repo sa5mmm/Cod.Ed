@@ -1,0 +1,39 @@
+#This "Hello World" Lambda code allows user to say "Hi" and "Bye" to Alexa
+
+# Main function
+#==================================================================
+def lambda_handler(event, context):
+    if event['request']['intent']['name'] == 'HelloWorldIntent':
+        #handle intent here
+        return HelloWorldIntent()
+    elif event['request']['intent']['name'] == 'GoodbyeIntent':
+        #handle intent here
+        return GoodbyeIntent()
+#Intent functions
+#==================================================================
+def HelloWorldIntent():
+    #body of function
+    return speech('Hello World!', False)
+
+def GoodbyeIntent():
+    #body of function
+    return speech('Goodbye!', True)
+#function for speech
+#==================================================================
+def speech(text,should_end_session):
+      return {
+      "version": "1.0",
+      "response": {
+        "outputSpeech": {
+          "text": text,
+          "type": "PlainText"
+        },
+        "speechletResponse": {
+          "outputSpeech": {
+            "text": text
+          },
+          "shouldEndSession": should_end_session
+        }
+      },
+      "sessionAttributes": {}
+      }
