@@ -1,3 +1,7 @@
+#This "Hello World" Lambda function allows for user to say "Hi", "Bye", as well as repeat the users name.
+#The main difference is that we have one more intent "MyNameIsIntent" and we are taking in input (from slots)
+
+# Main Function
 #==================================================================
 def lambda_handler(event, context):
     if event['request']['intent']['name'] == 'HelloWorldIntent':
@@ -9,6 +13,8 @@ def lambda_handler(event, context):
     elif event['request']['intent']['name'] == 'GoodbyeIntent':
         #handle intent here
         return GoodbyeIntent(event)
+        
+# Intent Functions
 #==================================================================
 def HelloWorldIntent(event):
     #body of function
@@ -17,14 +23,15 @@ def HelloWorldIntent(event):
 def MyNameIsIntent(event):
     #body of function
     name = event['request']['intent']['slots']['firstname']['value']
-    return response('Hi ' + name + ', say goodbye... ', False)
+    return speech('Hi ' + name + ', say goodbye... ', False)
 
 def GoodbyeIntent(event):
     #body of function
     name = event['request']['intent']['slots']['firstname']['value']
-    return response('Goodbye ' + name, True)
+    return speech('Goodbye ' + name, True)
+#Speech function 
 #==================================================================
-def response(text,should_end_session):
+def speech(text,should_end_session):
       return {
       "version": "1.0",
       "response": {
