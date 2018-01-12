@@ -1,13 +1,14 @@
 #template for lambda functions in python 
 
 def lambda_handler(event, context):
-    if event['request']['intent']['name'] == 'intent1':
+    intent_name = event['request']['intent']['name']
+    if intent_name == 'intent1':
         #handle intent here
         return intent1(event)
-    elif event['request']['intent']['name'] == 'intent2':
+    elif intent_name == 'intent2':
         #handle intent here
         return intent2(event)
-    elif event['request']['intent']['name'] == 'intent3':
+    elif intent_name == 'intent3':
         #handle intent here
         return intent2(event)
 
