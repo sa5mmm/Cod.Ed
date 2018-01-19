@@ -13,14 +13,14 @@ def lambda_handler(event, context):
 #==================================================================
 def HelloWorldIntent():
     #body of function
-    return speech('Hello World!', False)
+    return response('Hello World!', False)
 
 def GoodbyeIntent():
     #body of function
-    return speech('Goodbye!', True)
+    return response('Goodbye!', True)
 #function for speech
 #==================================================================
-def speech(text,should_end_session):
+def response(text,should_end_session):
       return {
       "version": "1.0",
       "response": {
