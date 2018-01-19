@@ -1,24 +1,33 @@
 #template for lambda functions in python 
 
+
+#==================== Main Handler ==================================
 def lambda_handler(event, context):
+
     intent_name = event['request']['intent']['name']
+    session = event['session']
+    
     if intent_name == 'intent1':
         #handle intent here
-        return intent1(event)
+        return intent1(event,session)
     elif intent_name == 'intent2':
         #handle intent here
-        return intent2(event)
+        return intent2(event,session)
     elif intent_name == 'intent3':
         #handle intent here
-        return intent2(event)
+        return intent2(event,session)
 
-#intent handlers 
-def intent1(event):
+ 
+#================= Intent Handlers ==================================
+
+def intent1(event,session):
     #body of function
-def intent2(event):
+def intent2(event,session):
     #body of function
-def intent3(event):
+def intent3(event,session):
     #body of function
+    
+#=====================Response Function =============================
 
 #call on this function to make alexa return speech
 def response(text,should_end_session):
