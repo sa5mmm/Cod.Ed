@@ -1,12 +1,10 @@
 {
     "intents":[
         {
-        "intent": "HelloWorldIntent",
-        "slots": [{}]
+        "intent": "HelloWorldIntent"
         },
         {
-        "intent": "GoodbyeIntent",
-        "slots": [{}]
+        "intent": "GoodbyeIntent"
         }
       ]
 }
