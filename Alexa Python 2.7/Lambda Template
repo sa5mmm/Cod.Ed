@@ -27,7 +27,7 @@ def intent2(event,session):
 def intent3(event,session):
     #body of function
     
-#=====================Response Function =============================
+#=====================Speech Function =============================
 
 #call on this function to make alexa return speech
 def response(text,should_end_session):
