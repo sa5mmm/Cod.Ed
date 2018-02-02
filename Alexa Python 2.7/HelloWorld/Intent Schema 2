@@ -1,16 +1,14 @@
 {
     "intents":[
         {
-        "intent": "HelloWorldIntent",
-        "slots": [{}]
+        "intent": "HelloWorldIntent"
         },
         {
         "intent": "MyNameIsIntent",
         "slots": [{"name": "firstname","type":"AMAZON.US_FIRST_NAME"}]
         },
         {
-        "intent": "GoodbyeIntent",
-        "slots": [{}]
+        "intent": "GoodbyeIntent"
         }
       ]
 }
