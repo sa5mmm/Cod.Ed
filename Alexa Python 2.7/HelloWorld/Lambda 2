@@ -18,7 +18,7 @@ def lambda_handler(event, context):
 #==================================================================
 def HelloWorldIntent(event):
     #body of function
-    return response('Hello World! What is your name?', False)
+    return speech('Hello World! What is your name?', False)
 
 def MyNameIsIntent(event):
     #body of function
