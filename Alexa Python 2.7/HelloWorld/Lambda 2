@@ -27,8 +27,7 @@ def MyNameIsIntent(event):
 
 def GoodbyeIntent(event):
     #body of function
-    name = event['request']['intent']['slots']['firstname']['value']
-    return speech('Goodbye ' + name, True)
+    return speech('Goodbye ', True)
 #Speech function 
 #==================================================================
 def speech(text,should_end_session):
