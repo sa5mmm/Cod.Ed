@@ -1,0 +1,13 @@
+
+HelloWorldIntent hi
+HelloWorldIntent hello
+HelloWorldIntent whats up
+
+MyNameIsIntent my name is {firstname}
+MyNameIsIntent {firstname}
+MyNameIsIntent I am {firstname}
+
+GoodbyeIntent bye
+GoodbyeIntent see you later
+GoodbyeIntent goodbye 
+
