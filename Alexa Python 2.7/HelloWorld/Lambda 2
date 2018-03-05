@@ -23,7 +23,7 @@ def HelloWorldIntent(event):
 def MyNameIsIntent(event):
     #body of function
     name = event['request']['intent']['slots']['firstname']['value']
-    return speech('Hi ' + name + ', say goodbye... ', False)
+    return speech('Hi ' + name + ', thats a great name. ', False)
 
 def GoodbyeIntent(event):
     #body of function
