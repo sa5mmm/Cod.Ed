@@ -2,37 +2,24 @@ import random
 
 welcome = "Welcome to the guessing game!"
 print(welcome)
-difficulty = raw_input("Pick a difficulty (easy,medium,hard)>>")
+#difficulty = raw_input("Pick a difficulty (easy,medium,hard)>>")
 replay = True
 
 while replay == True:
-    if difficulty == "hard":
-        randomNum = random.randint(0,100)
-        print("Ok lets start. I'm thinking of a number between 1 and 100")
-    elif difficulty == "medium":
-        randomNum = random.randint(0,50)
-        print("Ok lets start. I'm thinking of a number between 1 and 50")
-    elif difficulty == "easy":
         randomNum = random.randint(0,10)
         print("Ok lets start. I'm thinking of a number between 1 and 10")
 
     userGuess = input(">>")
     attempts = 0
     while userGuess != randomNum:
-        if userGuess > randomNum:
-            print("Nope, guess lower")
-            userGuess = input(">>")
-            attempts = attempts + 1;
-        elif userGuess
-        < randomNum:
-            print("Nope, guess higher")
-            userGuess = input(">>")
-            attempts = attempts + 1;
+    
+        if userGuess ? randomNum:
+            #CODE
+        elif userGuess ? randomNum:
+            #CODE
     if userGuess == randomNum:
-        print("Nice! I was thinking of " + str(randomNum) + " you did it in " + str(attempts) + " tries.")
-        playagain = raw_input("Play again? (Y/N) ")
+        #CODE
         if playagain == "Y" or playagain == "y":
-            difficulty = raw_input("Pick a difficulty (easy,medium,hard) >>")
-            replay = True
+           #CODE
         else:
-            replay = False
+           #CODE
