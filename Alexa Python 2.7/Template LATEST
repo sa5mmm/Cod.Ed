@@ -52,14 +52,14 @@ def get_welcome_response():
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
     reprompt_text = "WRITE TEXT HERE" 
-    should_end_session = #boolean
+    should_end_session =  True
 
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
 
 def MyIntentFunctionOne(intent, session):
     session_attributes = {}
-    should_end_session = False
+    should_end_session =  False #change boolean when needed
     card_title = "WRITE TITLE HERE"
     speech_output = "WRITE TEXT HERE"
     reprompt_text = "WRITE TEXT HERE"
@@ -68,7 +68,7 @@ def MyIntentFunctionOne(intent, session):
 
 def MyIntentFunctionTwo(intent, session):
     session_attributes = {}
-    should_end_session = #boolean
+    should_end_session = False #change boolean when needed
     card_title = "WRITE TITLE HERE"
     speech_output = "WRITE TEXT HERE"
     reprompt_text = "WRITE TEXT HERE"
