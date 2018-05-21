@@ -1,6 +1,17 @@
 """
 Hello world, this is a template for building Alexa skills.
-This template does not include the printing of the skill ID's 
+(This template does not include the printing of the skill ID's) 
+
+READ ME:
+For the coding novices, this seems like a lot of code. Not to worry, it is because most 
+of this is already layed out such that most of the heavy lifting is already taken care of. 
+The main thing that will be altered here are the "Intents". 
+
+Code Toolbox (copy and paste, change names as needed)
+1) Making variables from slots:
+    variableName = intent['slots']['slotname']['value']
+2) Making attributes:
+    session_attributes = {'keyName': 'keyvalue'}
 """
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -107,9 +118,9 @@ def on_intent(intent_request, session):
 
     #When adding new intent functions change the names in these 'if' statements
     # Dispatch to your skill's intent handlers
-    if intent_name == "MyIntentFunctionOne":
+    if intent_name == "MyIntentOne":
         return MyNameIsIntent(intent, session)
-    elif intent_name == "MyIntentFunctionTwo":
+    elif intent_name == "MyIntentTwo":
         return HowIsYourDayIntent(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
@@ -121,7 +132,6 @@ def on_intent(intent_request, session):
 
 def on_session_ended(session_ended_request, session):
     """ Called when the user ends the session.
-
     Is not called when the skill returns should_end_session=true
     """
     # add cleanup logic here
