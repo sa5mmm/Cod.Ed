@@ -1,0 +1,124 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "teacher roster prep",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "MyNameIsIntent",
+                    "slots": [
+                        {
+                            "name": "name",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "my name is {name}"
+                    ]
+                },
+                {
+                    "name": "RepeatNameIntent",
+                    "slots": [],
+                    "samples": [
+                        "repeat my name"
+                    ]
+                },
+                {
+                    "name": "CreateRosterIntent",
+                    "slots": [],
+                    "samples": [
+                        "create roster",
+                        "create my roster"
+                    ]
+                },
+                {
+                    "name": "AddStudentIntent",
+                    "slots": [
+                        {
+                            "name": "myStudent",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "add student {myStudent}"
+                    ]
+                },
+                {
+                    "name": "RemoveStudentIntent",
+                    "slots": [
+                        {
+                            "name": "myStudent",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "remove student {myStudent}"
+                    ]
+                },
+                {
+                    "name": "GetStudentIntent",
+                    "slots": [
+                        {
+                            "name": "myStudent",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "get student {myStudent}",
+                        "get info on {myStudent}"
+                    ]
+                },
+                {
+                    "name": "GiveStarIntent",
+                    "slots": [
+                        {
+                            "name": "myStudent",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        },
+                        {
+                            "name": "myStar",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "give {myStar} gold stars to {myStudent}",
+                        "give {myStudent} {myStar} gold star",
+                        "give {myStudent} {myStar} gold stars"
+                    ]
+                },
+                {
+                    "name": "RemoveStarIntent",
+                    "slots": [
+                        {
+                            "name": "myStar",
+                            "type": "AMAZON.NUMBER"
+                        },
+                        {
+                            "name": "myStudent",
+                            "type": "AMAZON.US_FIRST_NAME"
+                        }
+                    ],
+                    "samples": [
+                        "remove {myStar} gold stars from {myStudent}"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
