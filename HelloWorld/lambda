@@ -9,9 +9,26 @@ exports.handler = function(event, context, callback) {
 
 var handlers = {
     'LaunchRequest': function () {
-        this.emit('HelloIntent'); //function call 
+        this.emit(':ask','launch request'); //function call 
     },
     'HelloWorldIntent': function () {
         this.emit(':ask', 'Hello World from Alexa!'); 
-    }
+    },
+    
+    //ask waits for the user to respond again
+    //tell turns off the mic
+    
+    
+    'AMAZON.FallbackIntent': function(){
+        this.emit(':ask','Fall Back Intent');
+    },
+    'AMAZON.CancelIntent': function(){
+        this.emit(':tell', 'Cancel Intent');
+    },
+    'AMAZON.HelpIntent': function(){
+        this.emit(':ask','Say Hello or Goodbye.');
+    },
+    'AMAZON.StopIntent': function(){
+        this.emit('':tell', 'Stop Intent');
+    },
 };
